@@ -1,77 +1,505 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hamed jafari</title>
+  <title>حامد جعفری | برنامه‌نویس وب</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {font-family: "Tahoma", sans-serif; line-height: 1.6; background: #f9f9f9; color: #333;}
-    a {text-decoration: none;}
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --surface: #16161f;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e8f0;
+      --muted: #7878a0;
+      --accent: #00d4aa;
+      --accent2: #7c5cfc;
+      --accent3: #ff6b6b;
+    }
 
-    /* Navbar */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── NAVBAR ── */
     nav {
       position: fixed;
-      top: 0; left: 0; width: 100%;
-      background: #fff;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 15px 50px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-    nav .logo {font-weight: bold; font-size: 1.5rem; color: #4facfe;} /* آبی مدرن */
-    nav ul {display: flex; list-style: none;}
-    nav ul li {margin-left: 20px;}
-    nav ul li a {color: #333; font-weight: 500; transition: 0.3s;}
-    nav ul li a:hover {color: #43e97b;} /* سبز فیروزه‌ای */
-
-    /* Header */
-    header {
-      height: 100vh;
-      background: linear-gradient(135deg, #4facfe, #38f9d7); /* آبی → سبز */
-      color: #fff;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      text-align: center; padding: 20px;
-    }
-    header h1 {font-size: 3rem; margin-bottom: 10px; animation: fadeIn 2s;}
-    header p {font-size: 1.2rem; margin-bottom: 20px;}
-    .social-links a {margin: 0 10px; font-size: 1.5rem; color: #fff; transition: 0.3s;}
-    .social-links a:hover {color: #43e97b;} /* سبز فیروزه‌ای */
-
-    /* Sections */
-    section {padding: 80px 20px; max-width: 1100px; margin: auto;}
-    section h2 {text-align: center; margin-bottom: 40px; font-size: 2rem; color: #a18cd1;} /* بنفش لوکس */
-    .about p {text-align: center; max-width: 700px; margin: auto;}
-
-    /* Portfolio */
-    .portfolio {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .project {
-      background: #fff; border-radius: 12px; overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: 0.3s; cursor: pointer;
-    }
-    .project:hover {transform: translateY(-5px);}
-    .project img {width: 100%; display: block;}
-    .project h3 {margin: 15px; color: #a18cd1;} /* بنفش لوکس */
-    .project p {margin: 0 15px 15px;}
-
-    /* Footer */
-    footer {text-align: center; padding: 20px; background: #222; color: #fff;}
-
-    /* Animations */
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: rgba(10,10,15,0.8);
+      border-bottom: 1px solid var(--border);
     }
 
-    /* Responsive */
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+
+    nav ul li a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; right: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover { color: var(--text); }
+    nav ul li a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .glow-1 { background: var(--accent); top: -100px; right: -100px; }
+    .glow-2 { background: var(--accent2); bottom: -200px; left: -100px; }
+
+    .hero-content {
+      max-width: 700px;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.2);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge span {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+    }
+
+    .btn-primary:hover {
+      background: #00f0c0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,212,170,0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .social-strip {
+      display: flex;
+      gap: 16px;
+      margin-top: 52px;
+    }
+
+    .social-strip a {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .social-strip a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,170,0.07);
+      transform: translateY(-3px);
+    }
+
+    /* ── SECTION COMMON ── */
+    .section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 60px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .skill-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .skill-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,212,170,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .project-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-body { padding: 24px; }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-green { background: rgba(0,212,170,0.1); color: var(--accent); border: 1px solid rgba(0,212,170,0.2); }
+    .tag-purple { background: rgba(124,92,252,0.1); color: var(--accent2); border: 1px solid rgba(124,92,252,0.2); }
+    .tag-red { background: rgba(255,107,107,0.1); color: var(--accent3); border: 1px solid rgba(255,107,107,0.2); }
+
+    .project-body h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .project-body p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .project-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-link {
+      font-size: 0.85rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.3s;
+    }
+
+    .project-link:hover { gap: 10px; }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-wrapper h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .contact-wrapper p {
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .contact-social-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.3s;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .contact-social-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .contact-social-btn.github:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+    .contact-social-btn.linkedin:hover { border-color: #0a66c2; color: #0a66c2; background: rgba(10,102,194,0.07); }
+    .contact-social-btn.instagram:hover { border-color: #e1306c; color: #e1306c; background: rgba(225,48,108,0.07); }
+    .contact-social-btn.telegram:hover { border-color: #26a5e4; color: #26a5e4; background: rgba(38,165,228,0.07); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 60px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav {padding: 10px 20px;}
-      nav ul {display: none;}
+      nav { padding: 16px 24px; }
+      nav ul { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-wrapper { padding: 36px 24px; }
+      footer { padding: 24px; }
     }
   </style>
 </head>
@@ -79,77 +507,183 @@
 
   <!-- Navbar -->
   <nav>
-    <div class="logo">hamed jafari</div>
+    <div class="logo">hamed.dev</div>
     <ul>
       <li><a href="#about">درباره من</a></li>
       <li><a href="#portfolio">نمونه‌کارها</a></li>
-      <li><a href="#contact">ارتباط</a></li> 
+      <li><a href="#contact">ارتباط</a></li>
     </ul>
   </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>👋 سلام، من حامد هستم</h1>
-    <p>برنامه‌نویس وب | Django & React | علاقه‌مند به هوش مصنوعی</p>
-    <div class="social-links">
-      <a href="https://github.com/hamedj2270" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="www.linkedin.com/in/hamed-jafari-1168991ba/" target="_blank"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/hamedj2270" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="https://t.me/Hamed_dev0101" target="_blank"><i class="fab fa-telegram"></i></a>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow glow-1"></div>
+    <div class="hero-glow glow-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span></span> آماده همکاری</div>
+      <h1>سلام، من <em>حامد جعفری</em> هستم</h1>
+      <p>برنامه‌نویس وب با تخصص Django و React — می‌سازم چیزهایی که هم کار می‌کنن، هم زیبا هستن.</p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn btn-primary">نمونه‌کارها</a>
+        <a href="#contact" class="btn btn-ghost">تماس باهام</a>
+      </div>
+      <div class="social-strip">
+        <a href="https://github.com/hamedj2270" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/hamed-jafari-1168991ba/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/hamedj2270" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/Hamed_dev0101" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+      </div>
     </div>
-  </header>
+  </section>
+
+  <div class="divider"></div>
 
   <!-- About -->
-  <section id="about" class="about">
-    <h2>درباره من</h2>
-    <p>
-      من یک برنامه‌نویس پرانرژی و عاشق یادگیری تکنولوژی‌های جدیدم.
-      تخصص اصلیم توسعه وب با Django و React هست.  
-      هدفم ساخت اپلیکیشن‌هایی با کیفیت و سریع برای کسب‌وکارهاست.
-    </p>
-  </section>
+  <div class="section fade-in" id="about">
+    <div class="section-label">// درباره من</div>
+    <h2 class="section-title">چی هستم و چی کار می‌کنم</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>یه برنامه‌نویس پرانرژی و کنجکاوم که عاشق یادگیری تکنولوژی‌های جدیده. تخصص اصلیم توسعه وب با Django و React هست.</p>
+        <p>هدفم اینه که اپلیکیشن‌هایی بسازم که هم از نظر فنی محکم باشن، هم تجربه کاربری خوبی داشته باشن. به هوش مصنوعی هم علاقه زیادی دارم و دنبال یادگیریش هستم.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(0,212,170,0.1);color:var(--accent)"><i class="fab fa-python"></i></div>
+          Python / Django
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(124,92,252,0.1);color:var(--accent2)"><i class="fab fa-react"></i></div>
+          React
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(255,107,107,0.1);color:var(--accent3)"><i class="fab fa-js-square"></i></div>
+          JavaScript
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(0,212,170,0.1);color:var(--accent)"><i class="fab fa-html5"></i></div>
+          HTML / CSS
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(124,92,252,0.1);color:var(--accent2)"><i class="fas fa-database"></i></div>
+          SQL / PostgreSQL
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(255,107,107,0.1);color:var(--accent3)"><i class="fab fa-git-alt"></i></div>
+          Git / GitHub
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
 
   <!-- Portfolio -->
-  <!-- <section id="portfolio" class="portfolio">
-    <h2>نمونه‌کارها</h2>
-    <div class="project">
-      <img src="https://via.placeholder.com/400x250" alt="project1">
-      <h3>پروژه شماره ۱</h3>
-      <p>توضیح کوتاه درباره این پروژه.</p>
+  <div class="section fade-in" id="portfolio">
+    <div class="section-label">// نمونه‌کارها</div>
+    <h2 class="section-title">پروژه‌هایی که ساختم</h2>
+    <p class="section-desc">چند تا از پروژه‌هایی که روشون کار کردم — اینجا می‌تونی ببینی.</p>
+    <div class="portfolio-grid">
+
+      <div class="project-card">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0a0a0f 0%, #1a2a1a 100%);">
+          <span>🛒</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-green">Django</span>
+            <span class="tag tag-purple">React</span>
+          </div>
+          <h3>فروشگاه آنلاین</h3>
+          <p>یه پروژه e-commerce کامل با Django REST Framework و React — با سیستم احراز هویت، سبد خرید و پنل ادمین.</p>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/hamedj2270" class="project-link" target="_blank">مشاهده کد <i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2a 100%);">
+          <span>🤖</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-purple">Python</span>
+            <span class="tag tag-green">AI</span>
+          </div>
+          <h3>پروژه هوش مصنوعی</h3>
+          <p>توضیح پروژه‌ات رو اینجا بذار — چه مشکلی رو حل می‌کنه و چه تکنولوژی‌هایی استفاده شده.</p>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/hamedj2270" class="project-link" target="_blank">مشاهده کد <i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background: linear-gradient(135deg, #0a0a0f 0%, #2a1a1a 100%);">
+          <span>📊</span>
+        </div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="tag tag-red">React</span>
+            <span class="tag tag-green">API</span>
+          </div>
+          <h3>داشبورد مدیریت</h3>
+          <p>توضیح پروژه‌ات رو اینجا بذار — چه مشکلی رو حل می‌کنه و چه تکنولوژی‌هایی استفاده شده.</p>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/hamedj2270" class="project-link" target="_blank">مشاهده کد <i class="fab fa-github"></i></a>
+        </div>
+      </div>
+
     </div>
-    <div class="project">
-      <img src="https://via.placeholder.com/400x250" alt="project2">
-      <h3>پروژه شماره ۲</h3>
-      <p>توضیح کوتاه درباره این پروژه.</p>
-    </div>
-    <div class="project">
-      <img src="https://via.placeholder.com/400x250" alt="project3">
-      <h3>پروژه شماره ۳</h3>
-      <p>توضیح کوتاه درباره این پروژه.</p>
-    </div>
-  </section> -->
+  </div>
+
+  <div class="divider"></div>
 
   <!-- Contact -->
-  <section id="contact">
-    <h2>ارتباط با من</h2>
-    <p style="text-align:center;">برای همکاری می‌تونی از طریق شبکه‌های اجتماعی با من در ارتباط باشی.</p>
-  </section>
+  <div class="section fade-in" id="contact">
+    <div class="contact-wrapper">
+      <div class="section-label" style="margin-bottom:16px">// ارتباط</div>
+      <h3>بیا باهم یه چیز بسازیم</h3>
+      <p>برای همکاری، پروژه، یا فقط یه سلام ساده — از هر کانالی می‌تونی پیدام کنی.</p>
+      <div class="contact-socials">
+        <a href="https://github.com/hamedj2270" target="_blank" class="contact-social-btn github">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://linkedin.com/in/hamed-jafari-1168991ba/" target="_blank" class="contact-social-btn linkedin">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://www.instagram.com/hamedj2270" target="_blank" class="contact-social-btn instagram">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://t.me/Hamed_dev0101" target="_blank" class="contact-social-btn telegram">
+          <i class="fab fa-telegram"></i> Telegram
+        </a>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
-    © 2025 - ساخته شده با ❤️ توسط من
+    © 2025 — ساخته شده با ❤️ توسط حامد جعفری
   </footer>
 
   <script>
-    // اسکرول نرم
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function(e) {
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
         e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-          behavior: "smooth"
-        });
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
     });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
