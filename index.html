@@ -490,6 +490,56 @@
       transform: translateY(0);
     }
 
+    /* ── LOADING ── */
+    .repos-loading {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 60px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .loading-spinner {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .repos-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+
+    .lang-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .repo-stats {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .repo-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
@@ -582,60 +632,12 @@
   <div class="section fade-in" id="portfolio">
     <div class="section-label">// نمونه‌کارها</div>
     <h2 class="section-title">پروژه‌هایی که ساختم</h2>
-    <p class="section-desc">چند تا از پروژه‌هایی که روشون کار کردم — اینجا می‌تونی ببینی.</p>
-    <div class="portfolio-grid">
-
-      <div class="project-card">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0a0a0f 0%, #1a2a1a 100%);">
-          <span>🛒</span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag tag-green">Django</span>
-            <span class="tag tag-purple">React</span>
-          </div>
-          <h3>فروشگاه آنلاین</h3>
-          <p>یه پروژه e-commerce کامل با Django REST Framework و React — با سیستم احراز هویت، سبد خرید و پنل ادمین.</p>
-        </div>
-        <div class="project-footer">
-          <a href="https://github.com/hamedj2270" class="project-link" target="_blank">مشاهده کد <i class="fab fa-github"></i></a>
-        </div>
+    <p class="section-desc">مستقیم از GitHub — هر پروژه جدیدی اضافه کنی اینجا نمایش داده میشه.</p>
+    <div class="portfolio-grid" id="repos-grid">
+      <div class="repos-loading">
+        <div class="loading-spinner"></div>
+        <span>در حال بارگذاری پروژه‌ها...</span>
       </div>
-
-      <div class="project-card">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2a 100%);">
-          <span>🤖</span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag tag-purple">Python</span>
-            <span class="tag tag-green">AI</span>
-          </div>
-          <h3>پروژه هوش مصنوعی</h3>
-          <p>توضیح پروژه‌ات رو اینجا بذار — چه مشکلی رو حل می‌کنه و چه تکنولوژی‌هایی استفاده شده.</p>
-        </div>
-        <div class="project-footer">
-          <a href="https://github.com/hamedj2270" class="project-link" target="_blank">مشاهده کد <i class="fab fa-github"></i></a>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-thumb" style="background: linear-gradient(135deg, #0a0a0f 0%, #2a1a1a 100%);">
-          <span>📊</span>
-        </div>
-        <div class="project-body">
-          <div class="project-tags">
-            <span class="tag tag-red">React</span>
-            <span class="tag tag-green">API</span>
-          </div>
-          <h3>داشبورد مدیریت</h3>
-          <p>توضیح پروژه‌ات رو اینجا بذار — چه مشکلی رو حل می‌کنه و چه تکنولوژی‌هایی استفاده شده.</p>
-        </div>
-        <div class="project-footer">
-          <a href="https://github.com/hamedj2270" class="project-link" target="_blank">مشاهده کد <i class="fab fa-github"></i></a>
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -684,6 +686,120 @@
     }, { threshold: 0.15 });
 
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ── GitHub Repos ──
+    const GITHUB_USER = 'hamedj2270';
+    const SKIP_REPOS = [GITHUB_USER, 'python-telegram-bot']; // ریپوهایی که نخوای نشون بدی
+
+    const LANG_COLORS = {
+      Python: '#3572A5', JavaScript: '#f1e05a', HTML: '#e34c26',
+      CSS: '#563d7c', TypeScript: '#3178c6', Shell: '#89e051',
+      Vue: '#41b883', React: '#61DAFB', default: '#8b8b8b'
+    };
+
+    const LANG_TAG_CLASS = {
+      Python: 'tag-green', JavaScript: 'tag-red', HTML: 'tag-red',
+      CSS: 'tag-purple', TypeScript: 'tag-purple', Vue: 'tag-green',
+      default: 'tag-green'
+    };
+
+    const REPO_EMOJIS = {
+      python: '🐍', django: '🌿', react: '⚛️', bot: '🤖',
+      shop: '🛒', store: '🛒', chat: '💬', web: '🌐',
+      api: '🔌', ai: '🤖', resume: '📄', portfolio: '💼',
+      default: ['🚀','💡','🔧','📦','⚡','🛠']
+    };
+
+    function getEmoji(name, desc) {
+      const text = (name + ' ' + (desc || '')).toLowerCase();
+      for (const [key, val] of Object.entries(REPO_EMOJIS)) {
+        if (key !== 'default' && text.includes(key)) return val;
+      }
+      const arr = REPO_EMOJIS.default;
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    function getGradient(lang) {
+      const map = {
+        Python: '#0a0a0f 0%, #0d1f1a 100%',
+        JavaScript: '#0a0a0f 0%, #1f1d0a 100%',
+        HTML: '#0a0a0f 0%, #1f0d0a 100%',
+        CSS: '#0a0a0f 0%, #130a1f 100%',
+        TypeScript: '#0a0a0f 0%, #0a0d1f 100%',
+      };
+      return map[lang] || '#0a0a0f 0%, #16161f 100%';
+    }
+
+    async function loadRepos() {
+      const grid = document.getElementById('repos-grid');
+      try {
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`);
+        if (!res.ok) throw new Error('خطا در دریافت');
+        const repos = await res.json();
+
+        const filtered = repos
+          .filter(r => !r.fork && !SKIP_REPOS.includes(r.name))
+          .slice(0, 6);
+
+        if (!filtered.length) {
+          grid.innerHTML = '<div class="repos-error">پروژه‌ای پیدا نشد.</div>';
+          return;
+        }
+
+        grid.innerHTML = filtered.map(repo => {
+          const lang = repo.language || '';
+          const color = LANG_COLORS[lang] || LANG_COLORS.default;
+          const tagClass = LANG_TAG_CLASS[lang] || LANG_TAG_CLASS.default;
+          const emoji = getEmoji(repo.name, repo.description);
+          const gradient = getGradient(lang);
+          const desc = repo.description || 'توضیحی برای این پروژه ثبت نشده.';
+          const stars = repo.stargazers_count;
+          const forks = repo.forks_count;
+
+          return `
+          <div class="project-card" onclick="window.open('${repo.html_url}','_blank')">
+            <div class="project-thumb" style="background: linear-gradient(135deg, ${gradient});">
+              <span>${emoji}</span>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                ${lang ? `<span class="tag ${tagClass}">${lang}</span>` : ''}
+                ${repo.topics?.slice(0,2).map(t => `<span class="tag tag-purple">${t}</span>`).join('') || ''}
+              </div>
+              <h3>${repo.name}</h3>
+              <p>${desc}</p>
+            </div>
+            <div class="project-footer">
+              <div class="repo-stats">
+                ${lang ? `<span class="repo-stat"><span class="lang-dot" style="background:${color}"></span>${lang}</span>` : ''}
+                ${stars ? `<span class="repo-stat"><i class="far fa-star"></i> ${stars}</span>` : ''}
+                ${forks ? `<span class="repo-stat"><i class="fas fa-code-branch"></i> ${forks}</span>` : ''}
+              </div>
+              <a href="${repo.html_url}" class="project-link" target="_blank" onclick="event.stopPropagation()">
+                کد <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>`;
+        }).join('');
+
+        // re-observe new cards
+        document.querySelectorAll('.project-card').forEach((el, i) => {
+          el.style.animationDelay = `${i * 0.08}s`;
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = `opacity 0.5s ease ${i*0.08}s, transform 0.5s ease ${i*0.08}s`;
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, 100);
+        });
+
+      } catch (err) {
+        grid.innerHTML = `<div class="repos-error">⚠️ خطا در بارگذاری پروژه‌ها.<br><small>اینترنت یا محدودیت GitHub رو چک کن.</small></div>`;
+      }
+    }
+
+    loadRepos();
   </script>
 </body>
 </html>
