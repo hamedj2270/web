@@ -1,154 +1,189 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>دعوت‌نامه  🍽️</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>یه دعوت کوچولو ❤️</title>
 <style>
-:root{--green:#0f3d2e;--green2:#17543f;--yellow:#ffd23f;--red:#e63946;--white:#fffdf5;--f:'Vazirmatn',Tahoma,sans-serif}
-*{box-sizing:border-box;margin:0}
-body{font-family:var(--f);background:var(--green);color:var(--white);min-height:100vh;line-height:1.8;overflow-x:hidden;
-background-image:radial-gradient(var(--green2) 2px,transparent 2px);background-size:26px 26px}
-main{max-width:620px;margin:auto;padding:48px 22px 80px;text-align:center}
-.stamp{display:inline-block;transform:rotate(-6deg);border:3px solid var(--red);color:var(--red);background:var(--white);
-font-weight:900;padding:2px 16px;border-radius:8px;font-size:18px}
-h1{font-size:clamp(34px,9vw,58px);font-weight:900;line-height:1.3;margin:22px 0 10px}
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&display=swap');
+:root{--green:#173f32;--green2:#215846;--cream:#fffdf5;--yellow:#ffd447;--red:#e6535e}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Vazirmatn,Tahoma,sans-serif}
+body{
+  min-height:100vh;background:var(--green);color:var(--cream);
+  background-image:radial-gradient(var(--green2) 2px,transparent 2px);
+  background-size:26px 26px;overflow-x:hidden
+}
+main{max-width:620px;margin:auto;padding:50px 22px 80px;text-align:center}
+.stamp{display:inline-block;transform:rotate(-5deg);border:3px solid var(--red);
+color:var(--red);background:var(--cream);font-weight:900;padding:3px 16px;
+border-radius:8px;font-size:17px}
+h1{font-size:clamp(34px,9vw,58px);line-height:1.35;margin:22px 0 8px;font-weight:900}
 h1 em{font-style:normal;color:var(--yellow)}
-.sub{font-size:19px;opacity:.9;margin-bottom:34px}
-.plate{font-size:84px;line-height:1;margin-bottom:8px;display:inline-block;animation:wob 3s ease-in-out infinite}
+.sub{font-size:19px;line-height:2;margin:0 0 30px;opacity:.92}
+.plate{font-size:86px;line-height:1;display:inline-block;animation:wob 3s ease-in-out infinite}
 @keyframes wob{50%{transform:rotate(8deg) scale(1.06)}}
 
-.choice{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:120px}
-button{font-family:var(--f);cursor:pointer;border:0;font-weight:900}
-#yes{background:var(--yellow);color:var(--green);font-size:20px;padding:14px 30px;border-radius:999px;
-box-shadow:0 6px 0 #c9a21c;transition:transform .2s}
-#yes:active{transform:translateY(4px) scale(var(--s,1));box-shadow:0 2px 0 #c9a21c}
-#no{background:transparent;color:var(--white);border:2px solid var(--white);font-size:16px;padding:10px 22px;border-radius:999px;z-index:5}
-#no.run{position:fixed;transition:left .25s,top .25s}
-#hint{min-height:2em;margin-top:18px;color:var(--yellow);font-weight:700}
+.choice{display:flex;justify-content:center;align-items:center;gap:16px;
+flex-wrap:wrap;min-height:125px}
+button{font-family:inherit;cursor:pointer;font-weight:900}
+#yes{background:var(--yellow);color:var(--green);border:0;font-size:20px;
+padding:14px 30px;border-radius:999px;box-shadow:0 6px 0 #c5a31d;
+transition:transform .2s}
+#yes:active{transform:translateY(4px)}
+#no{background:transparent;color:var(--cream);border:2px solid var(--cream);
+font-size:16px;padding:10px 22px;border-radius:999px;z-index:5}
+#no.run{position:fixed;transition:left .22s,top .22s}
+#hint{min-height:2em;color:var(--yellow);font-weight:700;margin-top:18px}
 
 #win{display:none;margin-top:10px}
-#win.show{display:block;animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+#win.show{display:block;animation:pop .55s cubic-bezier(.2,1.6,.4,1)}
 @keyframes pop{from{transform:scale(.6);opacity:0}}
-.card{background:var(--white);color:var(--green);border-radius:20px;padding:26px 22px;text-align:right;margin-top:22px}
-.card h2{font-size:24px;margin-bottom:6px}
-.row{display:flex;gap:12px;padding:10px 0;border-top:1px dashed #b9c9bf}
+
+.card{background:var(--cream);color:var(--green);border-radius:22px;
+padding:28px 22px;text-align:right;margin-top:22px;box-shadow:0 15px 40px #0003}
+.card h2{text-align:center;font-size:26px;margin:0 0 18px}
+.row{display:flex;gap:14px;padding:12px 0;border-top:1px dashed #b9c9bf;font-size:17px}
 .row:first-of-type{border-top:0}
-.row b{min-width:62px;color:var(--red)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
-.chips label{cursor:pointer}
-.chips input{position:absolute;opacity:0}
-.chips span{display:inline-block;padding:6px 14px;border:2px solid var(--green);border-radius:999px;font-weight:700;font-size:15px}
-.chips input:checked+span{background:var(--green);color:var(--yellow)}
-.chips input:focus-visible+span{outline:3px solid var(--red)}
-.act{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.act a,.act button{flex:1;min-width:150px;text-align:center;text-decoration:none;padding:12px;border-radius:12px;font:900 16px var(--f);
-background:var(--green);color:var(--white)}
-.act a.alt{background:var(--yellow);color:var(--green)}
-.fine{margin-top:26px;font-size:13px;opacity:.7}
-.fall{position:fixed;top:-40px;font-size:28px;pointer-events:none;z-index:20;animation:fall linear forwards}
+.row b{min-width:65px;color:var(--red)}
+.final{text-align:center;line-height:2;margin-top:20px}
+.fine{margin-top:30px;font-size:13px;opacity:.7}
+.fall{position:fixed;top:-40px;font-size:28px;pointer-events:none;z-index:20;
+animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
-:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
+
 <body>
 <main>
-  <span class="stamp">اضطراری و غیرقابل‌ رد</span>
-  <h1><span id="guest">رفیق</span> جان،<br>شما <em></em> دعوت شده‌اید!</h1>
-  <div class="plate" aria-hidden="true">🍕</div>
-  <p class="sub"><span id="host"></span> می‌گه: شام با من، حساب هم با من. فقط بیا.</p>
+  <span class="stamp">یک دعوت ویژه 💌</span>
+
+  <h1><span id="guest">رفیق</span> جان،<br>
+  شما <em>دعوت</em> شده‌اید!</h1>
+
+  <div class="plate" aria-hidden="true">🍢</div>
+
+  <p class="sub">
+    حامد یه پیشنهاد خوشمزه برات داره 😋<br>
+    پایه‌ای بریم یه ناهار دو نفره؟
+  </p>
 
   <section id="ask">
     <div class="choice">
-      <button id="yes">باشه، میام 😋</button>
-      <button id="no">نه</button>
+      <button id="yes">باشه، میام 😍</button>
+      <button id="no">نه 😐</button>
     </div>
     <p id="hint" role="status"></p>
   </section>
 
   <section id="win">
-    <h2 style="font-size:30px">آفرین، انتخاب درستی بود 🎉</h2>
+    <h2 style="font-size:30px;margin-bottom:8px">آفرین، انتخاب درستی بود 🎉</h2>
+
     <div class="card">
-      <h2 id="rName"></h2>
-      <div class="row"><b>زمان</b><span id="rTime"></span></div>
-      <div class="row"><b>آدرس</b><span id="rAddr"></span></div>
-      <div class="row"><b>غذا</b><span>چی می‌خوری؟ (برای رزرو)</span></div>
-      <div class="chips" id="chips"></div>
-      <div class="act">
-        <a class="alt" id="map" target="_blank" rel="noopener">مسیریابی 📍</a>
-        <button id="tell">خبر بده به <span id="host2"></span> ✅</button>
+      <h2>قرارمون قطعی شد ❤️</h2>
+
+      <div class="row">
+        <b>رستوران</b>
+        <span>رستوران حاج حسین</span>
+      </div>
+
+      <div class="row">
+        <b>تاریخ</b>
+        <span>۱۵ مهر</span>
+      </div>
+
+      <div class="row">
+        <b>ساعت</b>
+        <span>۱۳:۰۰</span>
+      </div>
+
+      <div class="row">
+        <b>غذا</b>
+        <span>چلو کباب 🍢</span>
+      </div>
+
+      <div class="final">
+        پس منتظرت هستم 😌<br>
+        <strong>حامد ❤️</strong>
       </div>
     </div>
   </section>
-  <p class="fine">این دعوت‌نامه رسماً هیچ حق انصرافی ندارد. هرگونه تلاش برای نه گفتن ثبت می‌شود.</p>
+
+  <p class="fine">این دعوت‌نامه رسماً هیچ حق انصرافی ندارد 😄</p>
 </main>
 
 <script>
-/* ====== تنظیمات ====== */
-const CONFIG={
-  host:"حامد",
-  restaurant:"رستوران حاج حسین",
-  time:"۱۵ مهر ساعت ۱۳:۰۰",
-  address:"رستوران حاج حسین",
-  mapUrl:"https://maps.google.com/?q=رستوران+حاج+حسین",
-  whatsapp:"989370726713",
+const guest = new URLSearchParams(location.search).get("name");
+if (guest) document.getElementById("guest").textContent = guest;
 
-  foods:["چلو کباب"],
-};
-const dodges=[
- "اوه، دکمه فرار کرد! 😅","بیخیال، قبول کن دیگه","با نه گفتن لاغر نمی‌شی 🍔",
- "دکمه «میام» داره بزرگ می‌شه، نشونه‌ست","من که می‌دونم دلت می‌خواد","رستوران برات میز رزرو کرده 😤",
- "آخرین شانس…","خب باشه، تسلیم شدم 🏳️"
+const no = document.getElementById("no");
+const yes = document.getElementById("yes");
+const hint = document.getElementById("hint");
+
+const messages = [
+  "اوه! دکمه «نه» فرار کرد 😅",
+  "بیخیال، قبول کن دیگه ❤️",
+  "این دکمه ظاهراً قصد همکاری نداره 😂",
+  "من که می‌دونم دلت می‌خواد 😏",
+  "رستوران منتظرمونه هااا 🍢",
+  "آخرین شانس... 😭"
 ];
-const $=id=>document.getElementById(id);
-const q=new URLSearchParams(location.search).get('name');
-if(q) $('guest').textContent=q;
-['host','host2'].forEach(i=>$(i).textContent=CONFIG.host);
-$('rName').textContent=CONFIG.restaurant; $('rTime').textContent=CONFIG.time;
-$('rAddr').textContent=CONFIG.address; $('map').href=CONFIG.mapUrl;
-$('chips').innerHTML=CONFIG.foods.map(f=>`<label><input type="checkbox" value="${f}"><span>${f}</span></label>`).join('');
-document.title='دعوت زوری از '+(q||'تو')+' 🍽️';
 
-let n=0;
+let count = 0;
+
 function dodge(e){
-  if(n>=dodges.length-1) return;
-  e&&e.preventDefault();
-  const no=$('no'), w=innerWidth-no.offsetWidth-20, h=innerHeight-no.offsetHeight-20;
-  no.classList.add('run');
-  no.style.left=Math.max(10,Math.random()*w)+'px';
-  no.style.top=Math.max(10,Math.random()*h)+'px';
-  $('hint').textContent=dodges[n++];
-  $('yes').style.setProperty('--s',1);
-  $('yes').style.transform='scale('+Math.min(1+n*.18,2.4)+')';
-  if(n>=dodges.length-1){ no.textContent='باشه خب 😭'; no.classList.remove('run'); no.style.cssText=''; no.onclick=accept; $('hint').textContent=dodges[n]; }
+  if(e) e.preventDefault();
+
+  if(count >= messages.length){
+    no.textContent = "باشه خب 😭";
+    no.classList.remove("run");
+    no.style.cssText = "";
+    no.onclick = accept;
+    hint.textContent = "بالاخره تسلیم شدی! 😄";
+    return;
+  }
+
+  no.classList.add("run");
+
+  const maxX = Math.max(10, window.innerWidth - no.offsetWidth - 20);
+  const maxY = Math.max(10, window.innerHeight - no.offsetHeight - 20);
+
+  no.style.left = Math.max(10, Math.random() * maxX) + "px";
+  no.style.top = Math.max(10, Math.random() * maxY) + "px";
+
+  hint.textContent = messages[count];
+  count++;
+
+  yes.style.transform = "scale(" + Math.min(1 + count * .12, 1.8) + ")";
 }
-const no=$('no');
-no.addEventListener('pointerenter',dodge);
-no.addEventListener('touchstart',dodge,{passive:false});
-no.addEventListener('click',dodge);
+
+no.addEventListener("pointerenter", dodge);
+no.addEventListener("touchstart", dodge, {passive:false});
+no.addEventListener("click", dodge);
+
+function accept(){
+  document.getElementById("ask").style.display = "none";
+  document.getElementById("win").classList.add("show");
+  confetti();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+yes.addEventListener("click", accept);
 
 function confetti(){
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-  const em=['🍕','🍔','🍟','🍰','🥤','🎉','🍗','🍝'];
-  for(let i=0;i<36;i++){
-    const s=document.createElement('span'); s.className='fall'; s.textContent=em[i%em.length];
-    s.style.left=Math.random()*100+'vw'; s.style.animationDuration=(2+Math.random()*2.5)+'s'; s.style.animationDelay=Math.random()*.8+'s';
-    document.body.appendChild(s); setTimeout(()=>s.remove(),5500);
+  const emojis=["🍢","❤️","🎉","🍚","🌹","😍","✨"];
+
+  for(let i=0;i<35;i++){
+    const el=document.createElement("span");
+    el.className="fall";
+    el.textContent=emojis[i % emojis.length];
+    el.style.left=Math.random()*100+"vw";
+    el.style.animationDuration=(2+Math.random()*2.5)+"s";
+    el.style.animationDelay=Math.random()*.6+"s";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),5000);
   }
 }
-function accept(){
-  $('ask').style.display='none'; $('win').classList.add('show'); confetti(); scrollTo({top:0,behavior:'smooth'});
-}
-$('yes').onclick=accept;
-
-$('tell').onclick=()=>{
-  const picked=[...document.querySelectorAll('#chips input:checked')].map(i=>i.value).join('، ');
-  const who=q||'من';
-  const txt=`${who} قبول کرد 😎 میام ${CONFIG.restaurant}. ${picked?'غذا: '+picked:''}`;
-  location.href='https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(txt);
-};
 </script>
 </body>
 </html>
