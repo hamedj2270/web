@@ -1,189 +1,805 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>یه دعوت کوچولو ❤️</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;900&display=swap');
-:root{--green:#173f32;--green2:#215846;--cream:#fffdf5;--yellow:#ffd447;--red:#e6535e}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Vazirmatn,Tahoma,sans-serif}
-body{
-  min-height:100vh;background:var(--green);color:var(--cream);
-  background-image:radial-gradient(var(--green2) 2px,transparent 2px);
-  background-size:26px 26px;overflow-x:hidden
-}
-main{max-width:620px;margin:auto;padding:50px 22px 80px;text-align:center}
-.stamp{display:inline-block;transform:rotate(-5deg);border:3px solid var(--red);
-color:var(--red);background:var(--cream);font-weight:900;padding:3px 16px;
-border-radius:8px;font-size:17px}
-h1{font-size:clamp(34px,9vw,58px);line-height:1.35;margin:22px 0 8px;font-weight:900}
-h1 em{font-style:normal;color:var(--yellow)}
-.sub{font-size:19px;line-height:2;margin:0 0 30px;opacity:.92}
-.plate{font-size:86px;line-height:1;display:inline-block;animation:wob 3s ease-in-out infinite}
-@keyframes wob{50%{transform:rotate(8deg) scale(1.06)}}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حامد جعفری | برنامه‌نویس وب</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --surface: #16161f;
+      --border: rgba(255,255,255,0.07);
+      --text: #e8e8f0;
+      --muted: #7878a0;
+      --accent: #00d4aa;
+      --accent2: #7c5cfc;
+      --accent3: #ff6b6b;
+    }
 
-.choice{display:flex;justify-content:center;align-items:center;gap:16px;
-flex-wrap:wrap;min-height:125px}
-button{font-family:inherit;cursor:pointer;font-weight:900}
-#yes{background:var(--yellow);color:var(--green);border:0;font-size:20px;
-padding:14px 30px;border-radius:999px;box-shadow:0 6px 0 #c5a31d;
-transition:transform .2s}
-#yes:active{transform:translateY(4px)}
-#no{background:transparent;color:var(--cream);border:2px solid var(--cream);
-font-size:16px;padding:10px 22px;border-radius:999px;z-index:5}
-#no.run{position:fixed;transition:left .22s,top .22s}
-#hint{min-height:2em;color:var(--yellow);font-weight:700;margin-top:18px}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-#win{display:none;margin-top:10px}
-#win.show{display:block;animation:pop .55s cubic-bezier(.2,1.6,.4,1)}
-@keyframes pop{from{transform:scale(.6);opacity:0}}
+    html { scroll-behavior: smooth; }
 
-.card{background:var(--cream);color:var(--green);border-radius:22px;
-padding:28px 22px;text-align:right;margin-top:22px;box-shadow:0 15px 40px #0003}
-.card h2{text-align:center;font-size:26px;margin:0 0 18px}
-.row{display:flex;gap:14px;padding:12px 0;border-top:1px dashed #b9c9bf;font-size:17px}
-.row:first-of-type{border-top:0}
-.row b{min-width:65px;color:var(--red)}
-.final{text-align:center;line-height:2;margin-top:20px}
-.fine{margin-top:30px;font-size:13px;opacity:.7}
-.fall{position:fixed;top:-40px;font-size:28px;pointer-events:none;z-index:20;
-animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
-</style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(20px);
+      background: rgba(10,10,15,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 36px;
+    }
+
+    nav ul li a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; right: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover { color: var(--text); }
+    nav ul li a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .glow-1 { background: var(--accent); top: -100px; right: -100px; }
+    .glow-2 { background: var(--accent2); bottom: -200px; left: -100px; }
+
+    .hero-content {
+      max-width: 700px;
+      animation: fadeUp 1s ease both;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,170,0.08);
+      border: 1px solid rgba(0,212,170,0.2);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge span {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--muted);
+      margin-bottom: 40px;
+      max-width: 500px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-family: 'Vazirmatn', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0f;
+    }
+
+    .btn-primary:hover {
+      background: #00f0c0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,212,170,0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .social-strip {
+      display: flex;
+      gap: 16px;
+      margin-top: 52px;
+    }
+
+    .social-strip a {
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .social-strip a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(0,212,170,0.07);
+      transform: translateY(-3px);
+    }
+
+    /* ── SECTION COMMON ── */
+    .section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 60px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .skill-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .skill-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .skill-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    /* ── PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      border-color: rgba(0,212,170,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .project-thumb {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-body { padding: 24px; }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tag {
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-green { background: rgba(0,212,170,0.1); color: var(--accent); border: 1px solid rgba(0,212,170,0.2); }
+    .tag-purple { background: rgba(124,92,252,0.1); color: var(--accent2); border: 1px solid rgba(124,92,252,0.2); }
+    .tag-red { background: rgba(255,107,107,0.1); color: var(--accent3); border: 1px solid rgba(255,107,107,0.2); }
+
+    .project-body h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .project-body p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .project-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-link {
+      font-size: 0.85rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.3s;
+    }
+
+    .project-link:hover { gap: 10px; }
+
+    /* ── CONTACT ── */
+    .contact-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-wrapper::before {
+      content: '';
+      position: absolute;
+      top: -80px; left: 50%;
+      transform: translateX(-50%);
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-wrapper h3 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .contact-wrapper p {
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .contact-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .contact-social-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: all 0.3s;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .contact-social-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .contact-social-btn.github:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+    .contact-social-btn.linkedin:hover { border-color: #0a66c2; color: #0a66c2; background: rgba(10,102,194,0.07); }
+    .contact-social-btn.instagram:hover { border-color: #e1306c; color: #e1306c; background: rgba(225,48,108,0.07); }
+    .contact-social-btn.telegram:hover { border-color: #26a5e4; color: #26a5e4; background: rgba(38,165,228,0.07); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 30px 60px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── LOADING ── */
+    .repos-loading {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 60px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .loading-spinner {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .repos-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+
+    .lang-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .repo-stats {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .repo-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      nav ul { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-wrapper { padding: 36px 24px; }
+      footer { padding: 24px; }
+    }
+  </style>
 </head>
-
 <body>
-<main>
-  <span class="stamp">یک دعوت ویژه 💌</span>
 
-  <h1><span id="guest">رفیق</span> جان،<br>
-  شما <em>دعوت</em> شده‌اید!</h1>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">hamed.dev</div>
+    <ul>
+      <li><a href="#about">درباره من</a></li>
+      <li><a href="#portfolio">نمونه‌کارها</a></li>
+      <li><a href="#contact">ارتباط</a></li>
+    </ul>
+  </nav>
 
-  <div class="plate" aria-hidden="true">🍢</div>
-
-  <p class="sub">
-    حامد یه پیشنهاد خوشمزه برات داره 😋<br>
-    پایه‌ای بریم یه ناهار دو نفره؟
-  </p>
-
-  <section id="ask">
-    <div class="choice">
-      <button id="yes">باشه، میام 😍</button>
-      <button id="no">نه 😐</button>
-    </div>
-    <p id="hint" role="status"></p>
-  </section>
-
-  <section id="win">
-    <h2 style="font-size:30px;margin-bottom:8px">آفرین، انتخاب درستی بود 🎉</h2>
-
-    <div class="card">
-      <h2>قرارمون قطعی شد ❤️</h2>
-
-      <div class="row">
-        <b>رستوران</b>
-        <span>رستوران حاج حسین</span>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-glow glow-1"></div>
+    <div class="hero-glow glow-2"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span></span> آماده همکاری</div>
+      <h1>سلام، من <em>حامد جعفری</em> هستم</h1>
+      <p>برنامه‌نویس وب با تخصص Django و React — می‌سازم چیزهایی که هم کار می‌کنن، هم زیبا هستن.</p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn btn-primary">نمونه‌کارها</a>
+        <a href="#contact" class="btn btn-ghost">تماس باهام</a>
       </div>
-
-      <div class="row">
-        <b>تاریخ</b>
-        <span>۱۵ مهر</span>
-      </div>
-
-      <div class="row">
-        <b>ساعت</b>
-        <span>۱۳:۰۰</span>
-      </div>
-
-      <div class="row">
-        <b>غذا</b>
-        <span>چلو کباب 🍢</span>
-      </div>
-
-      <div class="final">
-        پس منتظرت هستم 😌<br>
-        <strong>حامد ❤️</strong>
+      <div class="social-strip">
+        <a href="https://github.com/hamedj2270" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/hamed-jafari-1168991ba/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.instagram.com/hamedj2270" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://t.me/Hamed_dev0101" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
       </div>
     </div>
   </section>
 
-  <p class="fine">این دعوت‌نامه رسماً هیچ حق انصرافی ندارد 😄</p>
-</main>
+  <div class="divider"></div>
 
-<script>
-const guest = new URLSearchParams(location.search).get("name");
-if (guest) document.getElementById("guest").textContent = guest;
+  <!-- About -->
+  <div class="section fade-in" id="about">
+    <div class="section-label">// درباره من</div>
+    <h2 class="section-title">چی هستم و چی کار می‌کنم</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>یه برنامه‌نویس پرانرژی و کنجکاوم که عاشق یادگیری تکنولوژی‌های جدیده. تخصص اصلیم توسعه وب با Django و React هست.</p>
+        <p>هدفم اینه که اپلیکیشن‌هایی بسازم که هم از نظر فنی محکم باشن، هم تجربه کاربری خوبی داشته باشن. به هوش مصنوعی هم علاقه زیادی دارم و دنبال یادگیریش هستم.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(0,212,170,0.1);color:var(--accent)"><i class="fab fa-python"></i></div>
+          Python / Django
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(124,92,252,0.1);color:var(--accent2)"><i class="fab fa-react"></i></div>
+          React
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(255,107,107,0.1);color:var(--accent3)"><i class="fab fa-js-square"></i></div>
+          JavaScript
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(0,212,170,0.1);color:var(--accent)"><i class="fab fa-html5"></i></div>
+          HTML / CSS
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(124,92,252,0.1);color:var(--accent2)"><i class="fas fa-database"></i></div>
+          SQL / PostgreSQL
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon" style="background:rgba(255,107,107,0.1);color:var(--accent3)"><i class="fab fa-git-alt"></i></div>
+          Git / GitHub
+        </div>
+      </div>
+    </div>
+  </div>
 
-const no = document.getElementById("no");
-const yes = document.getElementById("yes");
-const hint = document.getElementById("hint");
+  <div class="divider"></div>
 
-const messages = [
-  "اوه! دکمه «نه» فرار کرد 😅",
-  "بیخیال، قبول کن دیگه ❤️",
-  "این دکمه ظاهراً قصد همکاری نداره 😂",
-  "من که می‌دونم دلت می‌خواد 😏",
-  "رستوران منتظرمونه هااا 🍢",
-  "آخرین شانس... 😭"
-];
+  <!-- Portfolio -->
+  <div class="section fade-in" id="portfolio">
+    <div class="section-label">// نمونه‌کارها</div>
+    <h2 class="section-title">پروژه‌هایی که ساختم</h2>
+    <p class="section-desc">مستقیم از GitHub — هر پروژه جدیدی اضافه کنی اینجا نمایش داده میشه.</p>
+    <div class="portfolio-grid" id="repos-grid">
+      <div class="repos-loading">
+        <div class="loading-spinner"></div>
+        <span>در حال بارگذاری پروژه‌ها...</span>
+      </div>
+    </div>
+  </div>
 
-let count = 0;
+  <div class="divider"></div>
 
-function dodge(e){
-  if(e) e.preventDefault();
+  <!-- Contact -->
+  <div class="section fade-in" id="contact">
+    <div class="contact-wrapper">
+      <div class="section-label" style="margin-bottom:16px">// ارتباط</div>
+      <h3>بیا باهم یه چیز بسازیم</h3>
+      <p>برای همکاری، پروژه، یا فقط یه سلام ساده — از هر کانالی می‌تونی پیدام کنی.</p>
+      <div class="contact-socials">
+        <a href="https://github.com/hamedj2270" target="_blank" class="contact-social-btn github">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <a href="https://linkedin.com/in/hamed-jafari-1168991ba/" target="_blank" class="contact-social-btn linkedin">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://www.instagram.com/hamedj2270" target="_blank" class="contact-social-btn instagram">
+          <i class="fab fa-instagram"></i> Instagram
+        </a>
+        <a href="https://t.me/Hamed_dev0101" target="_blank" class="contact-social-btn telegram">
+          <i class="fab fa-telegram"></i> Telegram
+        </a>
+      </div>
+    </div>
+  </div>
 
-  if(count >= messages.length){
-    no.textContent = "باشه خب 😭";
-    no.classList.remove("run");
-    no.style.cssText = "";
-    no.onclick = accept;
-    hint.textContent = "بالاخره تسلیم شدی! 😄";
-    return;
-  }
+  <!-- Footer -->
+  <footer>
+    © 2025 — ساخته شده با ❤️ توسط حامد جعفری
+  </footer>
 
-  no.classList.add("run");
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
 
-  const maxX = Math.max(10, window.innerWidth - no.offsetWidth - 20);
-  const maxY = Math.max(10, window.innerHeight - no.offsetHeight - 20);
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
 
-  no.style.left = Math.max(10, Math.random() * maxX) + "px";
-  no.style.top = Math.max(10, Math.random() * maxY) + "px";
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  hint.textContent = messages[count];
-  count++;
+    // ── GitHub Repos ──
+    const GITHUB_USER = 'hamedj2270';
+    const SKIP_REPOS = [GITHUB_USER, 'python-telegram-bot']; // ریپوهایی که نخوای نشون بدی
 
-  yes.style.transform = "scale(" + Math.min(1 + count * .12, 1.8) + ")";
-}
+    const LANG_COLORS = {
+      Python: '#3572A5', JavaScript: '#f1e05a', HTML: '#e34c26',
+      CSS: '#563d7c', TypeScript: '#3178c6', Shell: '#89e051',
+      Vue: '#41b883', React: '#61DAFB', default: '#8b8b8b'
+    };
 
-no.addEventListener("pointerenter", dodge);
-no.addEventListener("touchstart", dodge, {passive:false});
-no.addEventListener("click", dodge);
+    const LANG_TAG_CLASS = {
+      Python: 'tag-green', JavaScript: 'tag-red', HTML: 'tag-red',
+      CSS: 'tag-purple', TypeScript: 'tag-purple', Vue: 'tag-green',
+      default: 'tag-green'
+    };
 
-function accept(){
-  document.getElementById("ask").style.display = "none";
-  document.getElementById("win").classList.add("show");
-  confetti();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
+    const REPO_EMOJIS = {
+      python: '🐍', django: '🌿', react: '⚛️', bot: '🤖',
+      shop: '🛒', store: '🛒', chat: '💬', web: '🌐',
+      api: '🔌', ai: '🤖', resume: '📄', portfolio: '💼',
+      default: ['🚀','💡','🔧','📦','⚡','🛠']
+    };
 
-yes.addEventListener("click", accept);
+    function getEmoji(name, desc) {
+      const text = (name + ' ' + (desc || '')).toLowerCase();
+      for (const [key, val] of Object.entries(REPO_EMOJIS)) {
+        if (key !== 'default' && text.includes(key)) return val;
+      }
+      const arr = REPO_EMOJIS.default;
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
 
-function confetti(){
-  const emojis=["🍢","❤️","🎉","🍚","🌹","😍","✨"];
+    function getGradient(lang) {
+      const map = {
+        Python: '#0a0a0f 0%, #0d1f1a 100%',
+        JavaScript: '#0a0a0f 0%, #1f1d0a 100%',
+        HTML: '#0a0a0f 0%, #1f0d0a 100%',
+        CSS: '#0a0a0f 0%, #130a1f 100%',
+        TypeScript: '#0a0a0f 0%, #0a0d1f 100%',
+      };
+      return map[lang] || '#0a0a0f 0%, #16161f 100%';
+    }
 
-  for(let i=0;i<35;i++){
-    const el=document.createElement("span");
-    el.className="fall";
-    el.textContent=emojis[i % emojis.length];
-    el.style.left=Math.random()*100+"vw";
-    el.style.animationDuration=(2+Math.random()*2.5)+"s";
-    el.style.animationDelay=Math.random()*.6+"s";
-    document.body.appendChild(el);
-    setTimeout(()=>el.remove(),5000);
-  }
-}
-</script>
+    async function loadRepos() {
+      const grid = document.getElementById('repos-grid');
+      try {
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100`);
+        if (!res.ok) throw new Error('خطا در دریافت');
+        const repos = await res.json();
+
+        const filtered = repos
+          .filter(r => !r.fork && !SKIP_REPOS.includes(r.name))
+          .slice(0, 6);
+
+        if (!filtered.length) {
+          grid.innerHTML = '<div class="repos-error">پروژه‌ای پیدا نشد.</div>';
+          return;
+        }
+
+        grid.innerHTML = filtered.map(repo => {
+          const lang = repo.language || '';
+          const color = LANG_COLORS[lang] || LANG_COLORS.default;
+          const tagClass = LANG_TAG_CLASS[lang] || LANG_TAG_CLASS.default;
+          const emoji = getEmoji(repo.name, repo.description);
+          const gradient = getGradient(lang);
+          const desc = repo.description || 'توضیحی برای این پروژه ثبت نشده.';
+          const stars = repo.stargazers_count;
+          const forks = repo.forks_count;
+
+          return `
+          <div class="project-card" onclick="window.open('${repo.html_url}','_blank')">
+            <div class="project-thumb" style="background: linear-gradient(135deg, ${gradient});">
+              <span>${emoji}</span>
+            </div>
+            <div class="project-body">
+              <div class="project-tags">
+                ${lang ? `<span class="tag ${tagClass}">${lang}</span>` : ''}
+                ${repo.topics?.slice(0,2).map(t => `<span class="tag tag-purple">${t}</span>`).join('') || ''}
+              </div>
+              <h3>${repo.name}</h3>
+              <p>${desc}</p>
+            </div>
+            <div class="project-footer">
+              <div class="repo-stats">
+                ${lang ? `<span class="repo-stat"><span class="lang-dot" style="background:${color}"></span>${lang}</span>` : ''}
+                ${stars ? `<span class="repo-stat"><i class="far fa-star"></i> ${stars}</span>` : ''}
+                ${forks ? `<span class="repo-stat"><i class="fas fa-code-branch"></i> ${forks}</span>` : ''}
+              </div>
+              <a href="${repo.html_url}" class="project-link" target="_blank" onclick="event.stopPropagation()">
+                کد <i class="fab fa-github"></i>
+              </a>
+            </div>
+          </div>`;
+        }).join('');
+
+        // re-observe new cards
+        document.querySelectorAll('.project-card').forEach((el, i) => {
+          el.style.animationDelay = `${i * 0.08}s`;
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = `opacity 0.5s ease ${i*0.08}s, transform 0.5s ease ${i*0.08}s`;
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, 100);
+        });
+
+      } catch (err) {
+        grid.innerHTML = `<div class="repos-error">⚠️ خطا در بارگذاری پروژه‌ها.<br><small>اینترنت یا محدودیت GitHub رو چک کن.</small></div>`;
+      }
+    }
+
+    loadRepos();
+  </script>
 </body>
 </html>
